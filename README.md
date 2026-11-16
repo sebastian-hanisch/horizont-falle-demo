@@ -1,7 +1,6 @@
 # Die Falle des endlichen Horizonts – Streamlit-Demo
 
-<!-- TODO nach dem Deploy: direkt hierher den Live-Link setzen (Leerzeile davor und danach):
-**[→ Demo live ausprobieren](https://sebastianhanisch-horizont-falle-demo.streamlit.app/)** -->
+**[→ Demo live ausprobieren](https://sebastianhanisch-horizont-falle-demo.streamlit.app/)**
 
 Diese Demo gehört zum Themenfeld „Regelung (von LQR bis MPC)“ auf der Website „Sebastian Hanisch – Operations Research und Machine Learning“. Sie baut auf [`lqr-riccati-demo`](https://github.com/sebastian-hanisch/lqr-riccati-demo) auf, die den Gewinn K des unendlichen Horizonts liefert (dieser Gewinn sagt nicht, was ein Plan über endlich viele Schritte daraus macht, wenn man ihn in jedem Schritt neu rechnet). Vehikel sind Kalmans Gegenbeispiel zum endlichen Horizont, der Wagen (Doppelintegrator, Abtastzeit 1), ein Skalar von Hand und als Zusatz das linearisierte Vier-Tank-System als **eigene modellbasierte Entsprechung** zu einem Beispiel von Berberich u. a. Die Demo misst in einem linearen Modell **ohne Beschränkungen und ohne Störung**, wann das Gesetz **u = −K_N x** eines Plans über N Schritte stabil ist. Alle Zahlen sind eigene Nachrechnung in diesem Modell, wo eine Quelle gelesen ist, steht sie bei den Formeln und unter „Quellenstand“.
 
