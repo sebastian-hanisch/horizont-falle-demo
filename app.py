@@ -126,7 +126,7 @@ with st.expander("So funktioniert der Plan über N Schritte", expanded=True):
 2. **Das Gesetz K_N:** Rückwärts gerechnet (Riccati-Rekursion) hängt der erste Stellwert linear vom Zustand ab, **u₀ = −K_N x**. MPC ohne Beschränkungen wendet nur diesen Stellwert an und rechnet im nächsten Schritt neu: das Gesetz ist über die Zeit **fest**.
 3. **Stabil heißt ρ < 1:** Die **Pole** sind die Eigenwerte von A − B K_N, **ρ** ist der Betrag des größten Pols (dieselbe Größe wie das ρ in [`lager-lieferzeit-demo`](https://github.com/sebastian-hanisch/lager-lieferzeit-demo)). ρ = 1 heißt grenzstabil, ρ > 1 instabil.
 4. **Die Falle:** Optimal für N Schritte heißt nicht stabil, wenn der Plan wiederholt wird. Ob und bei welchem N das passiert, hängt hier an der Strecke, an R, Q und am Terminalgewicht (Messungen unten, nicht als Satz).
-5. **Vorzeichen und Faktor:** Gesetz u = −K x (K positiv bei Rückführung); die Kosten haben keinen Faktor ½. Gewinn und Kostenmatrix hängen davon nicht ab.
+5. **Vorzeichen und Faktor:** Gesetz u = −K x (K positiv bei Rückführung); die Kosten haben keinen Faktor ½. Das Gesetz u(x), ρ und die Kostenmatrix hängen von beiden Konventionen nicht ab; nur das Vorzeichen von K (u = −K x gegen u = K x) und der Wert der Kosten (Faktor ½) ändern sich.
         """
     )
 
@@ -179,7 +179,7 @@ col_l.plotly_chart(build_rho_curve(a.rho, N, a.rho_open, a.rho_inf, n_show), wid
 col_r.plotly_chart(build_poles(a.poles_sel, a.poles_inf, a.poles_open, N), width="stretch", key="poles_chart")
 st.caption(f"Links: ρ des Gesetzes K_N für N = 1 bis {n_show}, rot ab ρ ≥ 1, der gewählte Horizont hat einen Rahmen. Rechts: die Pole von A − B K_N in der komplexen Ebene (kleine Wirkung bei N → ∞: blau).")
 st.plotly_chart(build_trajectory(a.traj_sel, a.traj_inf, N), width="stretch", key="traj_chart")
-st.caption("Verlauf von |x_k| im geschlossenen Kreis ohne Störung, Anfangszustand x₀ = (1, 0, …). Ein Gesetz mit ρ > 1 lässt |x| im Mittel um den Faktor ρ je Schritt wachsen (die Kurve kann am Anfang davon abweichen).")
+st.caption("Verlauf von |x_k| im geschlossenen Kreis ohne Störung, Anfangszustand x₀ = (1, 0, …). Ein Gesetz mit ρ > 1 lässt |x| für Anfangszustände mit Anteil im instabilen Mode asymptotisch um den Faktor ρ je Schritt wachsen (die Kurve kann am Anfang davon abweichen).")
 
 st.markdown("## ❓ Kernfrage 1: Wie lang muss der Horizont sein, damit das Gesetz stabil ist?")
 kind, text = ev.verdict_horizon_analysis(a)
@@ -338,7 +338,7 @@ $K_N$ ist der Gewinn der ersten Stufe des Horizonts $N$. MPC ohne Beschränkunge
 
 **Unendlicher Horizont.** $P_\infty$ löst $P = Q + A^\top P A - A^\top P B (R + B^\top P B)^{-1} B^\top P A$ und $K_\infty = (R + B^\top P_\infty B)^{-1} B^\top P_\infty A$.
 
-**Terminalgewicht gleich der Riccati-Lösung.** Gilt $\Pi_0 = P_f = P_\infty$, dann ist $\Pi_j = P_\infty$ für alle $j$ und deshalb $K_N = K_\infty$ für jedes $N$ (Induktion über $j$; eigene Nachrechnung, in Rawlings, Abschnitt 2.5.1, S. 132, für $K_N$ unabhängig von $N$ in eigener Fassung gelesen). Für $P_f \ne P_\infty$ gilt das nicht.
+**Terminalgewicht gleich der Riccati-Lösung.** Gilt $\Pi_0 = P_f = P_\infty$, dann ist $\Pi_j = P_\infty$ für alle $j$ und deshalb $K_N = K_\infty$ für jedes $N$ (Induktion über $j$; eigene Nachrechnung, in Rawlings, Abschnitt 2.5.1, S. 132, für $K_N$ unabhängig von $N$ in eigener Fassung gelesen). Für $P_f \ne P_\infty$ gilt das nicht für jedes $N$ ($K_N$ hängt dann im Allgemeinen von $N$ ab; Lehrbuchwissen über die Eindeutigkeit der positiv semidefiniten Lösung, hier nur an den gemessenen $P_f$ gesehen).
 
 **Hart gesetzte Endbedingung.** Verlangt man $x_N = 0$ statt eines Gewichts, ist das der Grenzfall $P_f \to \infty$; die Stellwerte $u_0, \dots, u_{N-1}$ lösen ein Gleichungssystem (KKT), und das Gesetz ist aus dem ersten Block gewonnen. Für Kalmans Beispiel ist $N = 2$ ein Deadbeat-Gesetz.
 
@@ -350,7 +350,7 @@ $K_N$ ist der Gewinn der ersten Stufe des Horizonts $N$. MPC ohne Beschränkunge
 
 **Wagen, Handrechnung.** Mit $Q = I$, $P_f = Q$ ist $K_1 = (0,\ 1/(R+1))$ und $A - BK_1 = \begin{pmatrix} 1 & 1 \\ 0 & R/(R+1) \end{pmatrix}$ mit den Eigenwerten $1$ und $R/(R+1)$. Der Vektor $(1,\ R+1)$ ist Linkseigenvektor zum Eigenwert 1; deshalb endet der Wagen bei $x_1(0) + (R+1)\,x_2(0)$.
 
-**Literatur und Quellenstand.** Gelesen: Rawlings/Mayne/Diehl, *Model Predictive Control: Theory, Computation, and Design*, 1.3.4 (S. 21–22), 2.5.1 (S. 132) und Kapitel 2, S. 144–147 (Terminalgewicht $\gamma$ ohne Terminalbedingung, hier nicht nachgerechnet); nur Gleichungen und Befunde in eigenen Worten. Grüne/Pannek/Seehafer/Worthmann, arXiv:1006.2529 (stabil für genügend großes $N$ unter Steuerbarkeitsannahme, Zulässigkeit ausgeklammert; ihre Mindest-$N$-Schranke ist hier nicht gemessen). Yoon/Kim, arXiv:2607.04006 (2026), nur Abstract und Einleitung gelesen: bei DARE-Terminalkosten stimme der erste Stellwert mit dem LQR für jeden Horizont überein; hier selbst nachgerechnet, ihr Beweis nicht geprüft. Berberich/Köhler/Müller/Allgöwer, arXiv:1906.04679, Abschnitt V (Vier-Tank-System, gelesener Satz). Alle übrigen Befunde sind **eigene Nachrechnung in diesem Modell**; eine Neuheitsaussage gibt es nicht.
+**Literatur und Quellenstand.** Gelesen: Rawlings/Mayne/Diehl, *Model Predictive Control: Theory, Computation, and Design*, 1.3.4 (S. 21–22), 2.5.1 (S. 132) und Kapitel 2, S. 144–147 (Terminalgewicht $\gamma$ ohne Terminalbedingung, hier nicht nachgerechnet); nur Gleichungen und Befunde in eigenen Worten. Grüne/Pannek/Seehafer/Worthmann, arXiv:1006.2529 (nur Abstract gelesen: Suboptimalitätsabschätzung ohne Terminalbedingung unter Steuerbarkeitsannahme, nichtlineare Systeme; „stabil für genügend großes $N$“ steht dort nicht und ist nicht geprüft; ihre Mindest-$N$-Schranke ist hier nicht gemessen). Yoon/Kim, arXiv:2607.04006 (2026), nur Abstract und Einleitung gelesen: bei DARE-Terminalkosten stimme der erste Stellwert mit dem LQR für jeden Horizont überein; hier selbst nachgerechnet, ihr Beweis nicht geprüft. Berberich/Köhler/Müller/Allgöwer, arXiv:1906.04679, Abschnitt V (Vier-Tank-System, gelesener Satz). Alle übrigen Befunde sind **eigene Nachrechnung in diesem Modell**; eine Neuheitsaussage gibt es nicht.
         """
     )
 

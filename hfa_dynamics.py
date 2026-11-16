@@ -1,7 +1,7 @@
 """Kern der Demo (nur numpy und scipy): das Gesetz des Horizonts N für lineare Strecken x⁺ = A x + B u mit quadratischen Kosten.
 
 Konvention (überall in dieser Demo): Gesetz u = −K x; Kosten über N Schritte  Σ_{k<N} (xₖ′Q xₖ + uₖ′R uₖ) + x_N′ P_f x_N  (ohne Faktor ½;
-Gewinn und Kostenmatrix sind davon unabhängig). K_N ist der Gewinn der ersten Stufe des Horizonts N; „MPC ohne Beschränkungen“ wendet in jedem
+das Gesetz u(x), ρ und die Kostenmatrix hängen von beiden Konventionen nicht ab, nur das Vorzeichen von K und der Wert der Kosten ändern sich). K_N ist der Gewinn der ersten Stufe des Horizonts N; „MPC ohne Beschränkungen“ wendet in jedem
 Schritt u = −K_N x an (Plan über N Schritte, nur den ersten Stellwert benutzen, neu rechnen).
 
 Rückwärtsrechnung (Riccati): Π₀ = P_f, K_j = (R + B′Π_{j−1}B)⁻¹ B′Π_{j−1}A, Π_j = Q + A′Π_{j−1}(A − B K_j). K_N gehört zum Horizont N.

@@ -174,7 +174,7 @@ def verdict_horizon(name: str, pf: str, N: int, rho_sel: float, rho_inf: float, 
             extra = "die offene Strecke ist grenzstabil (ρ = 1)"
         else:
             extra = f"die offene Strecke ist selbst instabil (ρ = {de(rho_open, 3)})"
-        return "warning", head + (f"N = {N} gibt ρ = {de(rho_sel, 3)}: der größte Pol liegt außerhalb des Einheitskreises, der Zustand wächst asymptotisch um {growth_text(rho_sel)} je Schritt, "
+        return "warning", head + (f"N = {N} gibt ρ = {de(rho_sel, 3)}: der größte Pol liegt außerhalb des Einheitskreises, der Zustand wächst bei Anteil im instabilen Mode asymptotisch um {growth_text(rho_sel)} je Schritt, "
                                   f"{extra}; {first}. {inf}")
     if rho_sel >= 1.0 - D.TOL:
         return "warning", head + (f"N = {N} gibt ρ = 1 (Band): ein Pol liegt auf dem Einheitskreis, das Gesetz ist grenzstabil, der Zustand kommt nicht in jeder Richtung zur Ruhe; "
