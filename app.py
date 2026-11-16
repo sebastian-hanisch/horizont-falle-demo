@@ -1,7 +1,7 @@
 """Die Falle des endlichen Horizonts – interaktive Konzept-Demo
 Sebastian Hanisch - Operations Research und Machine Learning
 
-Stück 3 der Linie „Regelung (von LQR bis MPC)“: ein Plan über N Schritte, in jedem Schritt neu gerechnet und nur im ersten Stellwert angewendet (MPC ohne Beschränkungen),
+Demo zum Thema „Regelung (von LQR bis MPC)“: ein Plan über N Schritte, in jedem Schritt neu gerechnet und nur im ersten Stellwert angewendet (MPC ohne Beschränkungen),
 ergibt ein festes Gesetz u = −K_N x. Wann ist es stabil, wann nicht, und was ändern die Terminalkosten? Alles eigene Nachrechnung in diesem Modell (linear, ohne Beschränkungen,
 ohne Störung); Kern in hfa_dynamics.py, Bruchrechnung in hfa_exact.py.
 
@@ -112,7 +112,7 @@ st.markdown(
     """
 Ein **Plan über N Schritte**, in jedem Schritt neu gerechnet und nur im ersten Stellwert angewendet (das ist MPC ohne Beschränkungen), ergibt ein festes Regelgesetz **u = −K_N x**. Die Demo misst in diesem Modell
 (linear, ohne Beschränkungen, ohne Störung), **wann dieses Gesetz stabil ist**: In Kalmans Gegenbeispiel zum endlichen Horizont destabilisiert der Plan eine offen stabile Strecke bei N = 1 bis 6 und ist erst ab N = 7 stabil.
-Wählt man als **Terminalkosten** die Lösung der algebraischen Riccati-Gleichung, ist der Gewinn für jedes N gleich dem des unendlichen Horizonts. Das ist Stück 3 der Linie „Regelung (von LQR bis MPC)“; es setzt den
+Wählt man als **Terminalkosten** die Lösung der algebraischen Riccati-Gleichung, ist der Gewinn für jedes N gleich dem des unendlichen Horizonts. Die Demo gehört zum Themenfeld „Regelung (von LQR bis MPC)“; sie setzt den
 Gewinn K des unendlichen Horizonts aus [`lqr-riccati-demo`](https://github.com/sebastian-hanisch/lqr-riccati-demo) voraus. Alle Zahlen sind **eigene Nachrechnung** in diesem Modell; wo eine Quelle gelesen ist, steht sie in den Formeln unten.
 
 Weiter unten: die **Kernfragen** mit Verdikt, sechs Experimente (🎯, 🔬), der Abschnitt **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**.
@@ -298,7 +298,7 @@ st.markdown(
     """
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
-| **Gewinn des unendlichen Horizonts (K_∞) ist gegeben** | Hier ist K_∞ der Vergleich; seine Herleitung, die Riccati-Gleichung und ihre Konventionen stehen im LQR-Stück. | [`lqr-riccati-demo`](https://github.com/sebastian-hanisch/lqr-riccati-demo) |
+| **Gewinn des unendlichen Horizonts (K_∞) ist gegeben** | Hier ist K_∞ der Vergleich; seine Herleitung, die Riccati-Gleichung und ihre Konventionen stehen in `lqr-riccati-demo`. | [`lqr-riccati-demo`](https://github.com/sebastian-hanisch/lqr-riccati-demo) |
 | **Keine Beschränkungen** | „P_f = P_∞ gibt K_N = K_∞“ gilt nur ohne Stell- und Zustandsgrenzen. Mit Grenzen wird aus dem Plan ein QP, und Terminalmenge und Zulässigkeit entscheiden. | [`mpc-stellgrenzen-demo`](https://github.com/sebastian-hanisch/mpc-stellgrenzen-demo), [`mpc-zulaessigkeit-demo`](https://github.com/sebastian-hanisch/mpc-zulaessigkeit-demo) |
 | **Kein Rauschen, keine Störung** | Nur das nominelle Modell ist gerechnet; die Robustheit der Gesetze K_∞ und K_N gegen Modellfehler und Reserven ist nicht gemessen. | [`lqr-reserven-demo`](https://github.com/sebastian-hanisch/lqr-reserven-demo), [`plan-stoerung-demo`](https://github.com/sebastian-hanisch/plan-stoerung-demo) |
 | **Rechnen ohne Zeit** | Die Rechenzeit des Plans zählt hier nicht; als Verzug von Perioden ist sie ein eigenes Stabilitätsproblem. | [`regelung-verzug-demo`](https://github.com/sebastian-hanisch/regelung-verzug-demo) |
@@ -358,5 +358,5 @@ st.markdown("---")
 st.caption(
     "Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
     "Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). "
-    "Mehr zu den Demos: [Interaktive Demos](https://sebastianhanisch.net/demos.html)."
+    "Mehr zur Reihe: [Regelung von LQR bis MPC: vom Plan zur Regel](https://sebastianhanisch.net/konzepte-regelung.html)."
 )
